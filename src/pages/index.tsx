@@ -2,61 +2,25 @@ import { Inter } from 'next/font/google'
 import { WeatherCard } from '@/components/card'
 import { LineChart } from '@/components/chart/LineChart'
 import { useState } from 'react'
-import { Current, ForecastDayType, Location } from '@/types'
-
-type ForecastType = {
-    location: Location
-    current: Current
-    forecast: ForecastDayType[]
-}
+import { ForecastType } from '@/types'
+import { initialState } from '@/state'
+import { ErrorBadge } from '@/components/error'
+import { getCity } from '@/utils/city'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-    const initialState: ForecastType = {
-        current: {
-            condition: {
-                code: 0,
-                text: '',
-                icon: ''
-            },
-            humidity: 0,
-            pressure_mb: 0,
-            temp_c: 0,
-            uv: 0,
-            wind_kph: 0
-        },
-        location: {
-            name: '',
-            region: ''
-        },
-        forecast: [
-            {
-                date: new Date().toLocaleDateString(),
-                day: {
-                    avghumidity: 0,
-                    maxtemp_c: 0,
-                    maxwind_kph: 0,
-                    mintemp_c: 0
-                },
-                uv: 0
-
-            }
-        ]
-    }
     const [city, setCity] = useState<string>('');
-    const [error, setError] = useState<{error: boolean; message: string}>({error: false, message: ''});
+    const [error, setError] = useState<{error: boolean; message?: string}>({error: false});
     const [forecast, setForecast] = useState<ForecastType>(initialState)
 
-    async function getCity() {
-        if(city.length < 3) return setError({error: true, message: 'Digite pelo menos 3 caracteres'});
-
-        const res = await fetch(`/api/forecast?city=${city}`);
-        if(!res.ok) return setError({error: true, message: res.statusText});
-        const data = await res.json()
-        .then(json => json.data)
-
-        return setForecast(data)
+    async function handleGetCity() {
+        const resGetCity = await getCity(city)
+        if(resGetCity.error) return setError(resGetCity);
+        if(resGetCity.data) {
+            setForecast(resGetCity.data)
+            setError({error: false})
+        }
     }
     
   return (
@@ -82,13 +46,15 @@ export default function Home() {
                 Cidade
             </span>
         </label>
+        { error.error && <ErrorBadge errorMessage={error.message!} /> }
         <button
-            onClick={getCity}
+            onClick={handleGetCity}
             className='inline-block w-full mb-8 rounded border border-indigo-600 px-12 py-3 text-sm font-medium text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500'
         >
             Confirmar
         </button>
             <WeatherCard
+                location={forecast.location}
                 data={forecast.current}
             />
         </div>

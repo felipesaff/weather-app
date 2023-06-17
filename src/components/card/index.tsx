@@ -1,13 +1,25 @@
 import { WiHumidity, WiBarometer } from 'react-icons/wi'
 import { BsCloudFog, BsFillCloudRainFill, BsFillSunFill } from 'react-icons/bs';
-import { Current } from '@/types';
+import { Current, Location } from '@/types';
 import Image from 'next/image';
 
 type Props = {
     data: Current
+    location: Location
 }
 
-export const WeatherCard = ({data: {condition, humidity, pressure_mb, temp_c, uv, wind_kph}}: Props) => {
+export const WeatherCard = (
+    {data: {
+            condition,
+            humidity,
+            pressure_mb,
+            temp_c,
+            uv,
+            wind_kph
+        },
+        location
+    }: Props
+) => {
     return (
         <div className="flex flex-col relative justify-between w-full bg-blue-200 rounded-md bg-opacity-5 before:absolute before:h-[300px] before:w-[180px] before:-translate-x-1/2 before:rounded-full
             before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[120px] after:w-[100px]
@@ -28,9 +40,10 @@ export const WeatherCard = ({data: {condition, humidity, pressure_mb, temp_c, uv
                         : <BsCloudFog width={50}/>
                 }
                 <span className='text-4xl my-4'>
-                    {temp_c}<sup className='text-xl'>°C</sup>
+                    {temp_c.toFixed(0)}<sup className='text-xl'>°C</sup>
                 </span>
-                <p className='text-sm font-thin text-gray-300'>{condition.text}</p>
+                <p className='text-sm text-gray-400 font-bold'> {location.name} - {location.region} </p>
+                <p className='text-sm font-thin text-gray-300'> {condition.text} </p>
             </div>
 
             <div className='text-gray-400 grid gap-4'>
