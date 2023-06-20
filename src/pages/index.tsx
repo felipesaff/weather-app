@@ -34,40 +34,40 @@ export default function Home() {
     
   return (
     <main
-      className={`flex h-screen w-screen ${inter.className}`}
+      className={`flex flex-col items-center lg:items-stretch lg:flex-row h-screen w-screen ${inter.className}`}
     >
         <div className='flex flex-col w-80 h-screen justify-center p-4'>
-        <label
-            htmlFor="city"
-            className="w-full relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 dark:border-gray-700 dark:bg-gray-800"
-        >
-            <input
-                onChange={e => setCity(e.target.value)}
-                value={city}
-                type="text"
-                id="city"
-                placeholder="Cidade"
-                className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 dark:text-white sm:text-sm"
-            />
-            <span
-                className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
+            <label
+                htmlFor="city"
+                className="w-full relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 dark:border-gray-700 dark:bg-gray-800"
             >
-                Cidade
-            </span>
-        </label>
-        { error.error && <ErrorBadge errorMessage={error.message!} /> }
-        <button
-            onClick={handleGetCity}
-            className='inline-block w-full mb-8 rounded border border-indigo-600 px-12 py-3 text-sm font-medium text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500'
-        >
-            Confirmar
-        </button>
+                <input
+                    onChange={e => setCity(e.target.value)}
+                    value={city}
+                    type="text"
+                    id="city"
+                    placeholder="Cidade"
+                    className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 dark:text-white sm:text-sm"
+                />
+                <span
+                    className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
+                >
+                    Cidade
+                </span>
+            </label>
+            { error.error && <ErrorBadge errorMessage={error.message!} /> }
+            <button
+                onClick={handleGetCity}
+                className='inline-block w-full mt-4 mb-8 rounded border border-indigo-600 px-12 py-3 text-sm font-medium text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500'
+            >
+                Confirmar
+            </button>
             <WeatherCard
                 location={forecast.location}
                 data={forecast.current}
             />
         </div>
-        <div className='w-full grid grid-cols-2 grid-rows-2 p-4'>
+        <div className='w-full grid lg:grid-cols-2 lg:grid-rows-2 p-4'>
             <MultiLineChart data={temperature}/>
             <LineChart data={humidity} />
             <LineChart data={uv} />
