@@ -1,5 +1,5 @@
 import { Line } from "react-chartjs-2";
-import { CategoryScale, Chart as ChartJS, Filler, LinearScale } from 'chart.js/auto';
+import { CategoryScale, Chart as ChartJS, LinearScale } from 'chart.js/auto';
 import { ChartData } from "@/types/chart";
 
 type ChartProps = {

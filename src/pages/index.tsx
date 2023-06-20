@@ -67,12 +67,18 @@ export default function Home() {
                 data={forecast.current}
             />
         </div>
-        <div className='w-full grid lg:grid-cols-2 lg:grid-rows-2 p-4'>
-            <MultiLineChart data={temperature}/>
-            <LineChart data={humidity} />
-            <LineChart data={uv} />
-            <LineChart data={wind} />
-        </div>
+        {
+            forecast.location.name &&
+            <div className='w-full flex flex-col justify-center items-center'>
+                <span className='text-3xl font-bold text-gray-300'>Previsão - 7 dias</span>
+                <div className=' w-full grid lg:grid-cols-2 lg:grid-rows-2 p-4'>
+                    <MultiLineChart data={temperature}/>
+                    <LineChart data={humidity} />
+                    <LineChart data={uv} />
+                    <LineChart data={wind} />
+                </div>
+            </div>
+        }
     </main>
   )
 }
