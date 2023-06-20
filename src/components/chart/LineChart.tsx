@@ -5,7 +5,7 @@ import { ChartData } from "@/types/chart";
 type ChartProps = {
     data: ChartData
 }
-ChartJS.register(CategoryScale, LinearScale, Filler);
+ChartJS.register(CategoryScale, LinearScale);
 
 export const LineChart = ({data}: ChartProps) => {
     const chartData = {

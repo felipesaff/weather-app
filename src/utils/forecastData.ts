@@ -7,9 +7,9 @@ export function getForecastTemperature(arr: ForecastDayType[]): ChartData[] {
         { labels: [], data: [], label: 'Min C°', color: "#06D6A0" }
     ];
     arr.forEach((day) => {
-        tmp[0].labels.push(day.date);
+        tmp[0].labels.push(new Date(day.date).toLocaleDateString());
         tmp[0].data.push(day.day.maxtemp_c);
-        tmp[1].labels.push(day.date);
+        tmp[1].labels.push(new Date(day.date).toLocaleDateString());
         tmp[1].data.push(day.day.mintemp_c);
     })
 
@@ -24,7 +24,7 @@ export function getForecastHumidity(arr: ForecastDayType[]): ChartData {
         color: '#FFD400'
     };
     arr.forEach((day) => {
-        tmp.labels.push(day.date);
+        tmp.labels.push(new Date(day.date).toLocaleDateString());
         tmp.data.push(day.day.avghumidity);
     });
     return tmp;
@@ -38,7 +38,7 @@ export function getForecastWind(arr: ForecastDayType[]): ChartData {
         color: '#454372'
     };
     arr.forEach((day) => {
-        tmp.labels.push(day.date);
+        tmp.labels.push(new Date(day.date).toLocaleDateString());
         tmp.data.push(day.day.maxwind_kph);
     });
     return tmp;
@@ -52,7 +52,7 @@ export function getForecastUV(arr: ForecastDayType[]): ChartData {
         color: '#AB2346'
     };
     arr.forEach((day) => {
-        tmp.labels.push(day.date);
+        tmp.labels.push(new Date(day.date).toLocaleDateString());
         tmp.data.push(day.day.uv)
     });
     return tmp;
