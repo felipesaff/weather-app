@@ -1,6 +1,6 @@
 import { WiHumidity, WiBarometer } from 'react-icons/wi'
 import { BsCloudFog, BsFillCloudRainFill, BsFillSunFill } from 'react-icons/bs';
-import { Current, Location } from '@/types';
+import { Current, Location } from '@/types/api';
 import Image from 'next/image';
 
 type Props = {

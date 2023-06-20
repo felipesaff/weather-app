@@ -29,6 +29,6 @@ export type ForecastDayType = {
         mintemp_c: number;
         maxwind_kph: number;
         avghumidity: number;
+        uv: number;
     }
-    uv: number
 }
