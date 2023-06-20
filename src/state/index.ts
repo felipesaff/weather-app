@@ -1,4 +1,4 @@
-import { ForecastType } from "@/types";
+import { ForecastType } from "@/types/api";
 
 export const initialState: ForecastType = {
     current: {
@@ -17,17 +17,19 @@ export const initialState: ForecastType = {
         name: '',
         region: ''
     },
-    forecast: [
-        {
-            date: new Date().toLocaleDateString(),
-            day: {
-                avghumidity: 0,
-                maxtemp_c: 0,
-                maxwind_kph: 0,
-                mintemp_c: 0
-            },
-            uv: 0
-
-        }
-    ]
+    forecast: {
+        forecastday: [
+            {
+                date: new Date().toLocaleDateString(),
+                day: {
+                    avghumidity: 0,
+                    maxtemp_c: 0,
+                    maxwind_kph: 0,
+                    mintemp_c: 0,
+                    uv: 0
+                },
+    
+            }
+        ]
+    }
 }

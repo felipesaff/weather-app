@@ -1,18 +1,27 @@
 import { Inter } from 'next/font/google'
+import { useState } from 'react'
+
 import { WeatherCard } from '@/components/card'
 import { LineChart } from '@/components/chart/LineChart'
-import { useState } from 'react'
+import { ErrorBadge } from '@/components/error'
+import { MultiLineChart } from '@/components/chart/MultiLine'
+
 import { ForecastType } from '@/types/api'
 import { initialState } from '@/state'
-import { ErrorBadge } from '@/components/error'
 import { getCity } from '@/utils/city'
+import { getForecastHumidity, getForecastTemperature, getForecastUV, getForecastWind } from '@/utils/forecastData'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
     const [city, setCity] = useState<string>('');
     const [error, setError] = useState<{error: boolean; message?: string}>({error: false});
     const [forecast, setForecast] = useState<ForecastType>(initialState)
+    
+    const temperature = getForecastTemperature(forecast.forecast.forecastday);
+    const humidity = getForecastHumidity(forecast.forecast.forecastday);
+    const uv = getForecastUV(forecast.forecast.forecastday);
+    const wind = getForecastWind(forecast.forecast.forecastday)
 
     async function handleGetCity() {
         const resGetCity = await getCity(city)
@@ -58,11 +67,11 @@ export default function Home() {
                 data={forecast.current}
             />
         </div>
-        <div className='w-full grid grid-cols-2 p-4'>
-            <LineChart color='#06D6A0' label='Temperatura'/>
-            <LineChart color='#1B9AAA' label='Humidade' />
-            <LineChart color='#EF476F' label='UV' />
-            <LineChart color='#38248a' label='Pressão' />
+        <div className='w-full grid grid-cols-2 grid-rows-2 p-4'>
+            <MultiLineChart data={temperature}/>
+            <LineChart data={humidity} />
+            <LineChart data={uv} />
+            <LineChart data={wind} />
         </div>
     </main>
   )

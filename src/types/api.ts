@@ -1,7 +1,9 @@
 export type ForecastType = {
     location: Location
     current: Current
-    forecast: ForecastDayType[]
+    forecast: {
+        forecastday: ForecastDayType[]
+    }
 }
 
 export type Location = {
